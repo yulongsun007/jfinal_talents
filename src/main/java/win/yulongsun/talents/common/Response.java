@@ -1,5 +1,8 @@
 package win.yulongsun.talents.common;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * @Date 2016/4/13
  * @Version 1.0.0
@@ -8,7 +11,7 @@ package win.yulongsun.talents.common;
 public class Response {
     private int    code;
     private String msg;
-    private Object data;
+    private List data = new ArrayList();
 
 
     public Response() {
@@ -35,42 +38,41 @@ public class Response {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(List data) {
         this.data = data;
     }
 
-//========================   success  ===============================
+    //========================   success  ===============================
 
     public void respSuccess() {
-        this.code = CODE.SUCCESS;
-        this.msg = MSG.DEFAULT_SUCCESS;
-        this.data = "";
+        respSuccess(MSG.DEFAULT_SUCCESS);
     }
 
-    public void respSuccess(Object data) {
-        this.code = CODE.SUCCESS;
-        this.msg = MSG.DEFAULT_SUCCESS;
-        this.data = data;
+    public void respSuccess(String msg) {
+        respSuccess(msg, null);
     }
 
-    public void respSuccess(String msg, Object data) {
+    public void respSuccess(List data) {
+        respSuccess(MSG.DEFAULT_SUCCESS, data);
+    }
+
+    public void respSuccess(String msg, List data) {
         this.code = CODE.SUCCESS;
         this.msg = msg;
-        this.data = data;
+        if(data!=null){
+            this.data.addAll(data);
+        }
     }
 
 
     //========================   error  ===============================
     public void respError() {
-        this.code = CODE.ERROR;
-        this.msg = MSG.DEFAULT_ERROR;
-        this.data = "";
+        respError(MSG.DEFAULT_ERROR);
     }
 
     public void respError(String msg) {
         this.code = CODE.ERROR;
         this.msg = msg;
-        this.data = "";
     }
 
 

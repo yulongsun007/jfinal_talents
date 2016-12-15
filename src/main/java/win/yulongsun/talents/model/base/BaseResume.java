@@ -57,36 +57,36 @@ public abstract class BaseResume<M extends BaseResume<M>> extends Model<M> imple
 		return get("resume_is_study");
 	}
 
-	public void setMajor(java.lang.String major) {
-		set("major", major);
+	public void setResumeMajor(java.lang.String resumeMajor) {
+		set("resume_major", resumeMajor);
 	}
 
-	public java.lang.String getMajor() {
-		return get("major");
+	public java.lang.String getResumeMajor() {
+		return get("resume_major");
 	}
 
-	public void setGraduateAt(java.lang.String graduateAt) {
-		set("graduate_at", graduateAt);
+	public void setResumeGraduateAt(java.lang.String resumeGraduateAt) {
+		set("resume_graduate_at", resumeGraduateAt);
 	}
 
-	public java.lang.String getGraduateAt() {
-		return get("graduate_at");
+	public java.lang.String getResumeGraduateAt() {
+		return get("resume_graduate_at");
 	}
 
-	public void setMobile(java.lang.String mobile) {
-		set("mobile", mobile);
+	public void setResumeMobile(java.lang.String resumeMobile) {
+		set("resume_mobile", resumeMobile);
 	}
 
-	public java.lang.String getMobile() {
-		return get("mobile");
+	public java.lang.String getResumeMobile() {
+		return get("resume_mobile");
 	}
 
-	public void setEmail(java.lang.String email) {
-		set("email", email);
+	public void setResumeEmail(java.lang.String resumeEmail) {
+		set("resume_email", resumeEmail);
 	}
 
-	public java.lang.String getEmail() {
-		return get("email");
+	public java.lang.String getResumeEmail() {
+		return get("resume_email");
 	}
 
 	public void setCreateAt(java.util.Date createAt) {
@@ -95,6 +95,14 @@ public abstract class BaseResume<M extends BaseResume<M>> extends Model<M> imple
 
 	public java.util.Date getCreateAt() {
 		return get("create_at");
+	}
+
+	public void setCreateBy(java.lang.Integer createBy) {
+		set("create_by", createBy);
+	}
+
+	public java.lang.Integer getCreateBy() {
+		return get("create_by");
 	}
 
 	public void setUpdateAt(java.util.Date updateAt) {

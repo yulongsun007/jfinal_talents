@@ -25,20 +25,20 @@ public abstract class BasePlanClazzR<M extends BasePlanClazzR<M>> extends Model<
 		return get("plan_id");
 	}
 
-	public void setClassId(java.lang.Integer classId) {
-		set("class_id", classId);
+	public void setClazzId(java.lang.Integer clazzId) {
+		set("clazz_id", clazzId);
 	}
 
-	public java.lang.Integer getClassId() {
-		return get("class_id");
+	public java.lang.Integer getClazzId() {
+		return get("clazz_id");
 	}
 
-	public void setClassDoneHour(java.lang.Integer classDoneHour) {
-		set("class_done_hour", classDoneHour);
+	public void setClazzDoneHour(java.lang.Integer clazzDoneHour) {
+		set("clazz_done_hour", clazzDoneHour);
 	}
 
-	public java.lang.Integer getClassDoneHour() {
-		return get("class_done_hour");
+	public java.lang.Integer getClazzDoneHour() {
+		return get("clazz_done_hour");
 	}
 
 	public void setCreateAt(java.util.Date createAt) {

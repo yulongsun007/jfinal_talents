@@ -33,6 +33,14 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("user_name");
 	}
 
+	public void setUserGender(java.lang.String userGender) {
+		set("user_gender", userGender);
+	}
+
+	public java.lang.String getUserGender() {
+		return get("user_gender");
+	}
+
 	public void setUserImg(java.lang.String userImg) {
 		set("user_img", userImg);
 	}
@@ -41,20 +49,20 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("user_img");
 	}
 
+	public void setUserEmail(java.lang.String userEmail) {
+		set("user_email", userEmail);
+	}
+
+	public java.lang.String getUserEmail() {
+		return get("user_email");
+	}
+
 	public void setUserToken(java.lang.String userToken) {
 		set("user_token", userToken);
 	}
 
 	public java.lang.String getUserToken() {
 		return get("user_token");
-	}
-
-	public void setUserCompany(java.lang.String userCompany) {
-		set("user_company", userCompany);
-	}
-
-	public java.lang.String getUserCompany() {
-		return get("user_company");
 	}
 
 	public void setUserRole(java.lang.String userRole) {
@@ -87,6 +95,14 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 
 	public java.util.Date getUpdateAt() {
 		return get("update_at");
+	}
+
+	public void setUserCompanyId(java.lang.Integer userCompanyId) {
+		set("user_company_id", userCompanyId);
+	}
+
+	public java.lang.Integer getUserCompanyId() {
+		return get("user_company_id");
 	}
 
 }

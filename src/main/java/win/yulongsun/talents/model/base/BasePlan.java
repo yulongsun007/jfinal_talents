@@ -41,8 +41,8 @@ public abstract class BasePlan<M extends BasePlan<M>> extends Model<M> implement
 		return get("plan_img");
 	}
 
-	public void setJobTemplateId(java.lang.Integer employTemplateId) {
-		set("job_template_id", employTemplateId);
+	public void setJobTemplateId(java.lang.Integer jobTemplateId) {
+		set("job_template_id", jobTemplateId);
 	}
 
 	public java.lang.Integer getJobTemplateId() {

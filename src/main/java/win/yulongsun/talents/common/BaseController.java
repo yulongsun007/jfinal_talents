@@ -2,6 +2,9 @@ package win.yulongsun.talents.common;
 
 import com.jfinal.core.Controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by sunyulong on 2016/12/10.
  */
@@ -23,23 +26,27 @@ public abstract class BaseController extends Controller {
 
     //========================   success  ===============================
     public void renderSuccess() {
-        response.setCode(Response.CODE.SUCCESS);
-        response.setMsg(Response.MSG.DEFAULT_SUCCESS);
+        response.respSuccess();
         renderJson(response);
         return;
     }
 
     public void renderSuccess(String msg) {
-        response.setCode(Response.CODE.SUCCESS);
-        response.setMsg(msg);
+        response.respSuccess(msg);
         renderJson(response);
         return;
     }
 
     public void renderSuccess(Object object) {
-        response.setCode(Response.CODE.SUCCESS);
-        response.setMsg(Response.MSG.DEFAULT_SUCCESS);
-        response.setData(object);
+        ArrayList list = new ArrayList();
+        list.add(object);
+        response.respSuccess(list);
+        renderJson(response);
+        return;
+    }
+
+    public void renderSuccess(List object) {
+        response.respSuccess(object);
         renderJson(response);
         return;
     }

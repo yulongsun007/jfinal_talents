@@ -6,9 +6,7 @@ import com.jfinal.plugin.activerecord.ActiveRecordPlugin;
 import com.jfinal.plugin.activerecord.dialect.MysqlDialect;
 import com.jfinal.plugin.druid.DruidPlugin;
 import com.jfinal.render.ViewType;
-import win.yulongsun.talents.controller.JobTemplateController;
-import win.yulongsun.talents.controller.PlanController;
-import win.yulongsun.talents.controller.UserController;
+import win.yulongsun.talents.controller.*;
 import win.yulongsun.talents.model._MappingKit;
 
 public class MyConfig extends JFinalConfig {
@@ -22,6 +20,9 @@ public class MyConfig extends JFinalConfig {
         me.add("/user", UserController.class);
         me.add("/plan", PlanController.class);
         me.add("/job_temp", JobTemplateController.class);
+        me.add("/clazz", ClazzController.class);
+        me.add("/resume", ResumeController.class);
+        me.add("/resume_exper", ResumeExperController.class);
     }
 
     public void configPlugin(Plugins me) {

@@ -65,11 +65,11 @@ public abstract class BaseJobTemplate<M extends BaseJobTemplate<M>> extends Mode
 		return get("tmp_job_category");
 	}
 
-	public void setTmpJobExperYear(java.lang.Integer tmpJobExperYear) {
+	public void setTmpJobExperYear(java.lang.String tmpJobExperYear) {
 		set("tmp_job_exper_year", tmpJobExperYear);
 	}
 
-	public java.lang.Integer getTmpJobExperYear() {
+	public java.lang.String getTmpJobExperYear() {
 		return get("tmp_job_exper_year");
 	}
 

@@ -9,52 +9,52 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseClazz<M extends BaseClazz<M>> extends Model<M> implements IBean {
 
-	public void setClassId(java.lang.Integer classId) {
-		set("class_id", classId);
+	public void setClazzId(java.lang.Integer clazzId) {
+		set("clazz_id", clazzId);
 	}
 
-	public java.lang.Integer getClassId() {
-		return get("class_id");
+	public java.lang.Integer getClazzId() {
+		return get("clazz_id");
 	}
 
-	public void setClassName(java.lang.String className) {
-		set("class_name", className);
+	public void setClazzName(java.lang.String clazzName) {
+		set("clazz_name", clazzName);
 	}
 
-	public java.lang.String getClassName() {
-		return get("class_name");
+	public java.lang.String getClazzName() {
+		return get("clazz_name");
 	}
 
-	public void setClassDesc(java.lang.String classDesc) {
-		set("class_desc", classDesc);
+	public void setClazzDesc(java.lang.String clazzDesc) {
+		set("clazz_desc", clazzDesc);
 	}
 
-	public java.lang.String getClassDesc() {
-		return get("class_desc");
+	public java.lang.String getClazzDesc() {
+		return get("clazz_desc");
 	}
 
-	public void setClassImg(java.lang.String classImg) {
-		set("class_img", classImg);
+	public void setClazzImg(java.lang.String clazzImg) {
+		set("clazz_img", clazzImg);
 	}
 
-	public java.lang.String getClassImg() {
-		return get("class_img");
+	public java.lang.String getClazzImg() {
+		return get("clazz_img");
 	}
 
-	public void setClassRequire(java.lang.String classRequire) {
-		set("class_require", classRequire);
+	public void setClazzRequire(java.lang.String clazzRequire) {
+		set("clazz_require", clazzRequire);
 	}
 
-	public java.lang.String getClassRequire() {
-		return get("class_require");
+	public java.lang.String getClazzRequire() {
+		return get("clazz_require");
 	}
 
-	public void setClassHour(java.lang.Integer classHour) {
-		set("class_hour", classHour);
+	public void setClazzHour(java.lang.Integer clazzHour) {
+		set("clazz_hour", clazzHour);
 	}
 
-	public java.lang.Integer getClassHour() {
-		return get("class_hour");
+	public java.lang.Integer getClazzHour() {
+		return get("clazz_hour");
 	}
 
 	public void setCreateAt(java.util.Date createAt) {

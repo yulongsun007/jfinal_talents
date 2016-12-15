@@ -25,11 +25,11 @@ public abstract class BaseResumeExper<M extends BaseResumeExper<M>> extends Mode
 		return get("resume_id");
 	}
 
-	public void setExperName(java.lang.Integer experName) {
+	public void setExperName(java.lang.String experName) {
 		set("exper_name", experName);
 	}
 
-	public java.lang.Integer getExperName() {
+	public java.lang.String getExperName() {
 		return get("exper_name");
 	}
 
