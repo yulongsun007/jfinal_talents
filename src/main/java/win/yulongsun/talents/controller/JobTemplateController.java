@@ -120,7 +120,7 @@ public class JobTemplateController extends BaseController {
     public void delete() {
         Integer tmp_id    = getParaToInt("tmp_id");
         String  create_by = getPara("create_by");
-        boolean isNull    = ValidateUtils.validatePara(create_by);
+        boolean isNull    = ValidateUtils.validatePara(tmp_id,create_by);
         if (isNull) {
             renderError(Response.MSG.REQ_IS_NULL);
         }
