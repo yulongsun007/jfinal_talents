@@ -49,11 +49,11 @@ public abstract class BaseMsg<M extends BaseMsg<M>> extends Model<M> implements 
 		return get("msg_content");
 	}
 
-	public void setMsgType(java.lang.Integer msgType) {
+	public void setMsgType(java.lang.String msgType) {
 		set("msg_type", msgType);
 	}
 
-	public java.lang.Integer getMsgType() {
+	public java.lang.String getMsgType() {
 		return get("msg_type");
 	}
 

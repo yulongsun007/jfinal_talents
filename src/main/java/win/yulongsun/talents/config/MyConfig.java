@@ -23,6 +23,7 @@ public class MyConfig extends JFinalConfig {
         me.add("/clazz", ClazzController.class);
         me.add("/resume", ResumeController.class);
         me.add("/resume_exper", ResumeExperController.class);
+        me.add("/msg", MsgController.class);
     }
 
     public void configPlugin(Plugins me) {

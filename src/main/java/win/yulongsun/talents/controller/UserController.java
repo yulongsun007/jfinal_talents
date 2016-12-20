@@ -9,6 +9,8 @@ import win.yulongsun.talents.model.User;
 import win.yulongsun.talents.util.DayuSMSUtils;
 import win.yulongsun.talents.util.ValidateUtils;
 
+import java.util.List;
+
 
 /**
  * Created by yulongsun on 2016/5/5.
@@ -206,5 +208,15 @@ public class UserController extends BaseController {
         }
     }
 
+    //查询积分列表
+    public void listScore() {
+        Integer user_company_id = getParaToInt("user_company_id");
+        boolean isNull          = ValidateUtils.validatePara(user_company_id);
+        if (isNull) {
+            renderError(Response.MSG.REQ_IS_NULL);
+        }
+        List<User> users = User.dao.find("select * from t_user where user_role_id = 2 and user_company_id = ? order by user_score desc", user_company_id);
+        renderSuccess(users);
+    }
 
 }
