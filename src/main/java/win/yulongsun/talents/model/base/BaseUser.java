@@ -65,12 +65,12 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("user_token");
 	}
 
-	public void setUserRole(java.lang.String userRole) {
-		set("user_role", userRole);
+	public void setUserRoleId(java.lang.Integer userRoleId) {
+		set("user_role_id", userRoleId);
 	}
 
-	public java.lang.String getUserRole() {
-		return get("user_role");
+	public java.lang.Integer getUserRoleId() {
+		return get("user_role_id");
 	}
 
 	public void setUserScore(java.lang.Integer userScore) {

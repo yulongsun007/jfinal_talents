@@ -65,4 +65,12 @@ public abstract class BaseMsg<M extends BaseMsg<M>> extends Model<M> implements 
 		return get("create_at");
 	}
 
+	public void setIsRead(java.lang.Integer isRead) {
+		set("is_read", isRead);
+	}
+
+	public java.lang.Integer getIsRead() {
+		return get("is_read");
+	}
+
 }
