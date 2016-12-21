@@ -4,8 +4,8 @@ import com.taobao.api.ApiException;
 import com.taobao.api.domain.BizResult;
 import win.yulongsun.talents.common.BaseController;
 import win.yulongsun.talents.common.Response;
-import win.yulongsun.talents.model.Company;
 import win.yulongsun.talents.model.User;
+import win.yulongsun.talents.model.UserCompanyR;
 import win.yulongsun.talents.util.DayuSMSUtils;
 import win.yulongsun.talents.util.ValidateUtils;
 
@@ -125,8 +125,8 @@ public class UserController extends BaseController {
         }
         if (user_company_id == null) {
             //没有公司Id的用户
-            User    user    = new User();
-            Company company = new Company();
+            User         user    = new User();
+            UserCompanyR company = new UserCompanyR();
             company.setCompanyName(company_name);
             company.setCompanyAddr(company_addr);
             company.setCompanyContact(company_contact);
@@ -150,7 +150,7 @@ public class UserController extends BaseController {
             }
         } else {
             //有公司Id的用户
-            Company company = Company.dao.findById(user_company_id);
+            UserCompanyR company = UserCompanyR.dao.findById(user_company_id);
             if (company == null) {
                 renderError("找不到对应编号的公司");
                 return;
@@ -199,7 +199,7 @@ public class UserController extends BaseController {
         if (isNull) {
             renderError(Response.MSG.REQ_IS_NULL);
         }
-        User user = User.dao.findFirst("select u.*,c.company_name,c.company_addr,c.company_contact from t_user u left join t_company c on u.user_company_id = c.company_id " +
+        User user = User.dao.findFirst("select u.*,c.company_name,c.company_addr,c.company_contact from t_user u left join t_user_company_r c on u.user_company_id = c.company_id " +
                 "where user_mobile = ? and user_token = ?", user_mobile, user_token);
         if (user == null) {
             renderError("用户名或密码错误");
@@ -219,4 +219,15 @@ public class UserController extends BaseController {
         renderSuccess(users);
     }
 
+    //查询HR名下的推荐人
+    public void listReferrer() {
+        Integer user_company_id = getParaToInt("user_company_id");
+        boolean isNull          = ValidateUtils.validatePara(user_company_id);
+        if (isNull) {
+            renderError(Response.MSG.REQ_IS_NULL);
+        }
+        List<User> users = User.dao.find("select u.*,c.company_name,c.company_addr,c.company_contact from t_user u left join t_user_company_r c on u.user_company_id = c.company_id" +
+                " where user_company_id = ? and user_role_id = 2", user_company_id);
+        renderSuccess(users);
+    }
 }

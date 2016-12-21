@@ -81,6 +81,30 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 		return get("user_score");
 	}
 
+	public void setUserCompanyId(java.lang.Integer userCompanyId) {
+		set("user_company_id", userCompanyId);
+	}
+
+	public java.lang.Integer getUserCompanyId() {
+		return get("user_company_id");
+	}
+
+	public void setUserCompanyDepart(java.lang.String userCompanyDepart) {
+		set("user_company_depart", userCompanyDepart);
+	}
+
+	public java.lang.String getUserCompanyDepart() {
+		return get("user_company_depart");
+	}
+
+	public void setUserCompanyCareer(java.lang.String userCompanyCareer) {
+		set("user_company_career", userCompanyCareer);
+	}
+
+	public java.lang.String getUserCompanyCareer() {
+		return get("user_company_career");
+	}
+
 	public void setCreateAt(java.util.Date createAt) {
 		set("create_at", createAt);
 	}
@@ -95,14 +119,6 @@ public abstract class BaseUser<M extends BaseUser<M>> extends Model<M> implement
 
 	public java.util.Date getUpdateAt() {
 		return get("update_at");
-	}
-
-	public void setUserCompanyId(java.lang.Integer userCompanyId) {
-		set("user_company_id", userCompanyId);
-	}
-
-	public java.lang.Integer getUserCompanyId() {
-		return get("user_company_id");
 	}
 
 }
