@@ -33,20 +33,12 @@ public abstract class BaseJobTemplate<M extends BaseJobTemplate<M>> extends Mode
 		return get("tmp_job_num");
 	}
 
-	public void setTmpDepart(java.lang.String tmpDepart) {
-		set("tmp_depart", tmpDepart);
+	public void setTmpJobBizDirect(java.lang.String tmpJobBizDirect) {
+		set("tmp_job_biz_direct", tmpJobBizDirect);
 	}
 
-	public java.lang.String getTmpDepart() {
-		return get("tmp_depart");
-	}
-
-	public void setTmpDepartContact(java.lang.String tmpDepartContact) {
-		set("tmp_depart_contact", tmpDepartContact);
-	}
-
-	public java.lang.String getTmpDepartContact() {
-		return get("tmp_depart_contact");
+	public java.lang.String getTmpJobBizDirect() {
+		return get("tmp_job_biz_direct");
 	}
 
 	public void setTmpJobAddr(java.lang.String tmpJobAddr) {
@@ -55,14 +47,6 @@ public abstract class BaseJobTemplate<M extends BaseJobTemplate<M>> extends Mode
 
 	public java.lang.String getTmpJobAddr() {
 		return get("tmp_job_addr");
-	}
-
-	public void setTmpJobCategory(java.lang.String tmpJobCategory) {
-		set("tmp_job_category", tmpJobCategory);
-	}
-
-	public java.lang.String getTmpJobCategory() {
-		return get("tmp_job_category");
 	}
 
 	public void setTmpJobExperYear(java.lang.String tmpJobExperYear) {
@@ -81,44 +65,36 @@ public abstract class BaseJobTemplate<M extends BaseJobTemplate<M>> extends Mode
 		return get("tmp_job_desc");
 	}
 
-	public void setTmpJobRequire(java.lang.String tmpJobRequire) {
-		set("tmp_job_require", tmpJobRequire);
+	public void setTmpJobSkillRequire(java.lang.String tmpJobSkillRequire) {
+		set("tmp_job_skill_require", tmpJobSkillRequire);
 	}
 
-	public java.lang.String getTmpJobRequire() {
-		return get("tmp_job_require");
+	public java.lang.String getTmpJobSkillRequire() {
+		return get("tmp_job_skill_require");
 	}
 
-	public void setTmpSpecialRequire(java.lang.String tmpSpecialRequire) {
-		set("tmp_special_require", tmpSpecialRequire);
+	public void setTmpJobEduRequire(java.lang.String tmpJobEduRequire) {
+		set("tmp_job_edu_require", tmpJobEduRequire);
 	}
 
-	public java.lang.String getTmpSpecialRequire() {
-		return get("tmp_special_require");
+	public java.lang.String getTmpJobEduRequire() {
+		return get("tmp_job_edu_require");
 	}
 
-	public void setTmpSalary(java.lang.String tmpSalary) {
-		set("tmp_salary", tmpSalary);
+	public void setTmpJobSalary(java.lang.String tmpJobSalary) {
+		set("tmp_job_salary", tmpJobSalary);
 	}
 
-	public java.lang.String getTmpSalary() {
-		return get("tmp_salary");
+	public java.lang.String getTmpJobSalary() {
+		return get("tmp_job_salary");
 	}
 
-	public void setTmpUrgency(java.lang.Integer tmpUrgency) {
-		set("tmp_urgency", tmpUrgency);
+	public void setTmpJobDepart(java.lang.String tmpJobDepart) {
+		set("tmp_job_depart", tmpJobDepart);
 	}
 
-	public java.lang.Integer getTmpUrgency() {
-		return get("tmp_urgency");
-	}
-
-	public void setDeadtime(java.util.Date deadtime) {
-		set("deadtime", deadtime);
-	}
-
-	public java.util.Date getDeadtime() {
-		return get("deadtime");
+	public java.lang.String getTmpJobDepart() {
+		return get("tmp_job_depart");
 	}
 
 	public void setCreateBy(java.lang.String createBy) {

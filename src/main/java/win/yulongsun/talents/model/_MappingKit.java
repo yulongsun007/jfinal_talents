@@ -18,6 +18,7 @@ public class _MappingKit {
 	public static void mapping(ActiveRecordPlugin arp) {
 		arp.addMapping("t_clazz", "clazz_id", Clazz.class);
 		arp.addMapping("t_job_template", "tmp_id", JobTemplate.class);
+		arp.addMapping("t_job_template_deploy", "_id", JobTemplateDeploy.class);
 		arp.addMapping("t_msg", "msg_id", Msg.class);
 		arp.addMapping("t_plan", "plan_id", Plan.class);
 		arp.addMapping("t_plan_clazz_r", "_id", PlanClazzR.class);

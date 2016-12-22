@@ -199,7 +199,7 @@ public class UserController extends BaseController {
         if (isNull) {
             renderError(Response.MSG.REQ_IS_NULL);
         }
-        User user = User.dao.findFirst("select u.*,c.company_name,c.company_addr,c.company_contact from t_user u left join t_user_company_r c on u.user_company_id = c.company_id " +
+        User user = User.dao.findFirst("select u.*,c.company_logo,c.company_name,c.company_addr,c.company_contact from t_user u left join t_user_company_r c on u.user_company_id = c.company_id " +
                 "where user_mobile = ? and user_token = ?", user_mobile, user_token);
         if (user == null) {
             renderError("用户名或密码错误");

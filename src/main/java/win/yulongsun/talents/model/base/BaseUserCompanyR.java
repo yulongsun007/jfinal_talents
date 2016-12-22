@@ -17,6 +17,14 @@ public abstract class BaseUserCompanyR<M extends BaseUserCompanyR<M>> extends Mo
 		return get("company_id");
 	}
 
+	public void setCompanyLogo(java.lang.String companyLogo) {
+		set("company_logo", companyLogo);
+	}
+
+	public java.lang.String getCompanyLogo() {
+		return get("company_logo");
+	}
+
 	public void setCompanyName(java.lang.String companyName) {
 		set("company_name", companyName);
 	}
@@ -41,20 +49,20 @@ public abstract class BaseUserCompanyR<M extends BaseUserCompanyR<M>> extends Mo
 		return get("company_contact");
 	}
 
-	public void setUpdateAt(java.util.Date updateAt) {
-		set("update_at", updateAt);
-	}
-
-	public java.util.Date getUpdateAt() {
-		return get("update_at");
-	}
-
 	public void setCreateAt(java.util.Date createAt) {
 		set("create_at", createAt);
 	}
 
 	public java.util.Date getCreateAt() {
 		return get("create_at");
+	}
+
+	public void setUpdateAt(java.util.Date updateAt) {
+		set("update_at", updateAt);
+	}
+
+	public java.util.Date getUpdateAt() {
+		return get("update_at");
 	}
 
 }
