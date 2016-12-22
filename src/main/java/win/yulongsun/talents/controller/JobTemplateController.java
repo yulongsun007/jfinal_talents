@@ -1,5 +1,6 @@
 package win.yulongsun.talents.controller;
 
+import com.alibaba.druid.util.StringUtils;
 import win.yulongsun.talents.common.BaseController;
 import win.yulongsun.talents.common.Response;
 import win.yulongsun.talents.model.JobTemplate;
@@ -125,6 +126,8 @@ public class JobTemplateController extends BaseController {
         }
     }
 
+    ///////////////////////////////////////////////////////////////////////////
+
     //发布招聘
     public void deploy() {
         Integer tmp_id   = getParaToInt("tmp_id");
@@ -177,5 +180,29 @@ public class JobTemplateController extends BaseController {
         } else {
             renderError(Response.MSG.UPDATE_ERROR);
         }
+    }
+
+    //查询
+    public void queryDeploy() {
+        String  create_by    = getPara("create_by");
+        Integer tmp_id       = getParaToInt("tmp_id");
+        String  tmp_job_name = getPara("tmp_job_name");
+        boolean isNull       = ValidateUtils.validatePara(create_by);
+        if (isNull) {
+            renderError(Response.MSG.REQ_IS_NULL);
+        }
+        String sql = "SELECT d._id,d.start_at,d.ent_at,d.deploy_at,t.* " +
+                "FROM t_job_template_deploy d Left JOIN t_job_template t " +
+                "ON d.tmp_id=t.tmp_id " +
+                "WHERE t.create_by=" + create_by + " AND d.is_active=1 ";
+        if (tmp_id != null) {
+            sql += "AND d.tmp_id=" + tmp_id;
+        }
+        if (!StringUtils.isEmpty(tmp_job_name)) {
+            sql += "AND  t.tmp_job_name like '%" + tmp_job_name + "%' ";
+        }
+        sql += " order by d._id desc";
+        List<JobTemplateDeploy> list = JobTemplateDeploy.dao.find(sql);
+        renderSuccess(list);
     }
 }
