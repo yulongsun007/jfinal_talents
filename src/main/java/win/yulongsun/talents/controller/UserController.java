@@ -1,5 +1,6 @@
 package win.yulongsun.talents.controller;
 
+import com.alibaba.druid.util.StringUtils;
 import com.taobao.api.ApiException;
 import com.taobao.api.domain.BizResult;
 import win.yulongsun.talents.common.BaseController;
@@ -230,4 +231,22 @@ public class UserController extends BaseController {
                 " where user_company_id = ? and user_role_id = 2", user_company_id);
         renderSuccess(users);
     }
+
+    //模糊查询HR名下的推荐人
+    public void queryReferrer() {
+        String  user_name       = getPara("user_name");
+        Integer user_company_id = getParaToInt("user_company_id");
+        boolean isNull          = ValidateUtils.validatePara(user_company_id);
+        if (isNull) {
+            renderError(Response.MSG.REQ_IS_NULL);
+        }
+        if (StringUtils.isEmpty(user_name)) {
+            user_name = "";
+        }
+        String sql = "select u.*,c.company_name,c.company_addr,c.company_contact from t_user u left join t_user_company_r c on u.user_company_id = c.company_id" +
+                " where user_company_id = " + user_company_id + " and user_role_id = 2 and user_name like '%" + user_name + "%'";
+        List<User> users = User.dao.find(sql);
+        renderSuccess(users);
+    }
+
 }

@@ -24,3 +24,12 @@ java.lang.IllegalStateException: port: 8090 already in use!
 	at sun.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43)
 	at java.lang.reflect.Method.invoke(Method.java:498)
 	at com.intellij.rt.execution.application.AppMain.main(AppMain.java:147)
+
+2016-12-14 18:30:07
+[ERROR]-[Thread: main]-[com.taobao.api.internal.util.TaobaoLogger.logApiError()]: 2016-12-14 18:30:07.003^_^23568245^_^alibaba.aliqin.fc.sms.num.send^_^10.66.113.95^_^Mac OS X^_^709^_^http://gw.api.tbsandbox.com/router/rest^_^method=alibaba.aliqin.fc.sms.num.send&sign=6786DEFC2D6DB422F8548CB7EEFBF997&format=json&rec_num=13750843926&sms_template_code=SMS_34435111&app_key=23568245&partner_id=top-sdk-java-20160607&v=2.0&sms_free_sign_name=%E5%8F%98%E6%9B%B4%E9%AA%8C%E8%AF%81&sign_method=hmac&sms_param=%7B%22code%22%3A%222222%7D&sms_type=normal&timestamp=2016-12-14+18%3A30%3A06^_^{"error_response":{"code":29,"msg":"Invalid app Key","sub_code":"isv.appkey-not-exists","request_id":"118g714poyxu7"}}
+
+2016-12-14 18:32:30
+[ERROR]-[Thread: main]-[com.taobao.api.internal.util.TaobaoLogger.logApiError()]: 2016-12-14 18:32:30.595^_^23568245^_^alibaba.aliqin.fc.sms.num.send^_^10.66.113.95^_^Mac OS X^_^983^_^http://gw.api.taobao.com/router/rest^_^method=alibaba.aliqin.fc.sms.num.send&sign=BB200B2DB27C7BD39CF3F015EA5AF7B2&format=json&rec_num=13750843926&sms_template_code=SMS_34435111&app_key=23568245&partner_id=top-sdk-java-20160607&v=2.0&sms_free_sign_name=%E5%8F%98%E6%9B%B4%E9%AA%8C%E8%AF%81&sign_method=hmac&sms_param=%7B%22code%22%3A%222222%7D&sms_type=normal&timestamp=2016-12-14+18%3A32%3A29^_^{"error_response":{"code":41,"msg":"Invalid arguments:sms_param","request_id":"z27k0wnwu0fa"}}
+
+2016-12-14 18:44:55
+[ERROR]-[Thread: main]-[com.taobao.api.internal.util.TaobaoLogger.logApiError()]: 2016-12-14 18:44:55.694^_^23568245^_^alibaba.aliqin.fc.sms.num.send^_^10.66.113.95^_^Mac OS X^_^699^_^http://gw.api.taobao.com/router/rest^_^method=alibaba.aliqin.fc.sms.num.send&sign=E7D1BE401F419783D48CF38EA15DB01E&format=json&rec_num=13750843926&sms_template_code=SMS_34435111&app_key=23568245&partner_id=top-sdk-java-20160607&v=2.0&sms_free_sign_name=%E6%A0%A1%E6%8E%A8&sign_method=hmac&sms_param=%7B%22code%22%3A%223333%22%7D&sms_type=normal&timestamp=2016-12-14+18%3A44%3A54^_^{"error_response":{"code":15,"msg":"Remote service error","sub_code":"isv.BUSINESS_LIMIT_CONTROL","sub_msg":"触发业务流控","request_id":"rxvg6lk2rwli"}}
