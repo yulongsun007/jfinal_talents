@@ -33,12 +33,36 @@ public abstract class BasePlan<M extends BasePlan<M>> extends Model<M> implement
 		return get("plan_desc");
 	}
 
+	public void setPlanContent(java.lang.String planContent) {
+		set("plan_content", planContent);
+	}
+
+	public java.lang.String getPlanContent() {
+		return get("plan_content");
+	}
+
 	public void setPlanImg(java.lang.String planImg) {
 		set("plan_img", planImg);
 	}
 
 	public java.lang.String getPlanImg() {
 		return get("plan_img");
+	}
+
+	public void setPlanHour(java.lang.Integer planHour) {
+		set("plan_hour", planHour);
+	}
+
+	public java.lang.Integer getPlanHour() {
+		return get("plan_hour");
+	}
+
+	public void setPlanScore(java.lang.Integer planScore) {
+		set("plan_score", planScore);
+	}
+
+	public java.lang.Integer getPlanScore() {
+		return get("plan_score");
 	}
 
 	public void setJobTemplateId(java.lang.Integer jobTemplateId) {

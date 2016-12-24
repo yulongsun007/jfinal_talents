@@ -51,6 +51,12 @@ public abstract class BaseController extends Controller {
         return;
     }
 
+    public void renderSuccess(String msg, List object) {
+        response.respSuccess(msg, object);
+        renderJson(response);
+        return;
+    }
+
     //========================   error  ===============================
 
     public void renderError() {

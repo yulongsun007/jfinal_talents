@@ -17,20 +17,20 @@ public abstract class BaseClazz<M extends BaseClazz<M>> extends Model<M> impleme
 		return get("clazz_id");
 	}
 
+	public void setClazzPriority(java.lang.Integer clazzPriority) {
+		set("clazz_priority", clazzPriority);
+	}
+
+	public java.lang.Integer getClazzPriority() {
+		return get("clazz_priority");
+	}
+
 	public void setClazzName(java.lang.String clazzName) {
 		set("clazz_name", clazzName);
 	}
 
 	public java.lang.String getClazzName() {
 		return get("clazz_name");
-	}
-
-	public void setClazzDesc(java.lang.String clazzDesc) {
-		set("clazz_desc", clazzDesc);
-	}
-
-	public java.lang.String getClazzDesc() {
-		return get("clazz_desc");
 	}
 
 	public void setClazzImg(java.lang.String clazzImg) {
@@ -41,12 +41,12 @@ public abstract class BaseClazz<M extends BaseClazz<M>> extends Model<M> impleme
 		return get("clazz_img");
 	}
 
-	public void setClazzRequire(java.lang.String clazzRequire) {
-		set("clazz_require", clazzRequire);
+	public void setClazzBooks(java.lang.String clazzBooks) {
+		set("clazz_books", clazzBooks);
 	}
 
-	public java.lang.String getClazzRequire() {
-		return get("clazz_require");
+	public java.lang.String getClazzBooks() {
+		return get("clazz_books");
 	}
 
 	public void setClazzHour(java.lang.Integer clazzHour) {
@@ -55,6 +55,22 @@ public abstract class BaseClazz<M extends BaseClazz<M>> extends Model<M> impleme
 
 	public java.lang.Integer getClazzHour() {
 		return get("clazz_hour");
+	}
+
+	public void setClazzScore(java.lang.Integer clazzScore) {
+		set("clazz_score", clazzScore);
+	}
+
+	public java.lang.Integer getClazzScore() {
+		return get("clazz_score");
+	}
+
+	public void setPlanId(java.lang.Integer planId) {
+		set("plan_id", planId);
+	}
+
+	public java.lang.Integer getPlanId() {
+		return get("plan_id");
 	}
 
 	public void setCreateAt(java.util.Date createAt) {

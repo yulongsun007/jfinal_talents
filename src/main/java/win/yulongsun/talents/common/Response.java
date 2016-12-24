@@ -59,7 +59,7 @@ public class Response {
     public void respSuccess(String msg, List data) {
         this.code = CODE.SUCCESS;
         this.msg = msg;
-        if(data!=null){
+        if (data != null) {
             this.data.addAll(data);
         }
     }
@@ -83,6 +83,7 @@ public class Response {
 
     public interface MSG {
         String DEFAULT_SUCCESS = "处理成功";
+        String DLETE_SUCCESS   = "删除成功";
         String DEFAULT_ERROR   = "处理失败";
         String REQ_IS_NULL     = "参数不正确";
         String ADD_ERROR       = "添加失败";

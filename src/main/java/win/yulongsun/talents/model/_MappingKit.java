@@ -21,7 +21,6 @@ public class _MappingKit {
 		arp.addMapping("t_job_template_deploy", "_id", JobTemplateDeploy.class);
 		arp.addMapping("t_msg", "msg_id", Msg.class);
 		arp.addMapping("t_plan", "plan_id", Plan.class);
-		arp.addMapping("t_plan_clazz_r", "_id", PlanClazzR.class);
 		arp.addMapping("t_resume", "resume_id", Resume.class);
 		arp.addMapping("t_resume_exper", "_id", ResumeExper.class);
 		arp.addMapping("t_role", "_id", Role.class);
