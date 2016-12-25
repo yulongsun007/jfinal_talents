@@ -41,6 +41,22 @@ public abstract class BaseUserPlanR<M extends BaseUserPlanR<M>> extends Model<M>
 		return get("apply_status");
 	}
 
+	public void setPlanAlreadyHour(java.lang.Integer planAlreadyHour) {
+		set("plan_already_hour", planAlreadyHour);
+	}
+
+	public java.lang.Integer getPlanAlreadyHour() {
+		return get("plan_already_hour");
+	}
+
+	public void setPlanAlreadyScore(java.lang.Integer planAlreadyScore) {
+		set("plan_already_score", planAlreadyScore);
+	}
+
+	public java.lang.Integer getPlanAlreadyScore() {
+		return get("plan_already_score");
+	}
+
 	public void setCreateAt(java.util.Date createAt) {
 		set("create_at", createAt);
 	}

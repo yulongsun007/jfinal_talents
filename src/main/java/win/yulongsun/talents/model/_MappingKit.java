@@ -26,6 +26,7 @@ public class _MappingKit {
 		arp.addMapping("t_role", "_id", Role.class);
 		arp.addMapping("t_user", "user_id", User.class);
 		arp.addMapping("t_user_company_r", "company_id", UserCompanyR.class);
+		arp.addMapping("t_user_plan_clazz_r", "_id", UserPlanClazzR.class);
 		arp.addMapping("t_user_plan_r", "_id", UserPlanR.class);
 	}
 }

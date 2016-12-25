@@ -25,6 +25,7 @@ public class MyConfig extends JFinalConfig {
         me.add("/resume_exper", ResumeExperController.class);
         me.add("/msg", MsgController.class);
         me.add("/user_plan_r", UserPlanRController.class);
+        me.add("/user_plan_clazz_r", UserPlanClazzRController.class);
     }
 
     public void configPlugin(Plugins me) {

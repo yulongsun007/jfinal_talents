@@ -53,7 +53,7 @@ public class PlanController extends BaseController {
         }
         //查出对应培养计划下的课程列表
         for (Plan plan : planList) {
-            List<Clazz> clazzList = Clazz.dao.find("select * from t_clazz where plan_id=? order by clazz_priority asc", plan.getPlanId());
+            List<Clazz> clazzList = Clazz.dao.findByPlanId(plan.getPlanId());
             plan.put("clazz", clazzList);
         }
         renderSuccess(planList);
