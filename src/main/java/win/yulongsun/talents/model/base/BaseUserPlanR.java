@@ -49,6 +49,14 @@ public abstract class BaseUserPlanR<M extends BaseUserPlanR<M>> extends Model<M>
 		return get("apply_status");
 	}
 
+	public void setApplyMsg(java.lang.String applyMsg) {
+		set("apply_msg", applyMsg);
+	}
+
+	public java.lang.String getApplyMsg() {
+		return get("apply_msg");
+	}
+
 	public void setPlanAlreadyHour(java.lang.Integer planAlreadyHour) {
 		set("plan_already_hour", planAlreadyHour);
 	}

@@ -3,9 +3,7 @@ package win.yulongsun.talents.controller;
 import win.yulongsun.talents.common.BaseController;
 import win.yulongsun.talents.common.Constant;
 import win.yulongsun.talents.common.Response;
-import win.yulongsun.talents.model.Clazz;
-import win.yulongsun.talents.model.UserPlanClazzR;
-import win.yulongsun.talents.model.UserPlanR;
+import win.yulongsun.talents.model.*;
 import win.yulongsun.talents.util.ValidateUtils;
 
 import java.util.List;
@@ -99,9 +97,8 @@ public class UserPlanRController extends BaseController {
         }
     }
 
-
-    //查询学生已学的所有计划
-    public void listStu() {
+    //学生：查询所有已提交简历的计划
+    public void listCommit() {
         String  user_id = getPara("user_id");
         boolean isNull  = ValidateUtils.validatePara(user_id);
         if (isNull) {
@@ -109,10 +106,34 @@ public class UserPlanRController extends BaseController {
             return;
         }
 
-        List<UserPlanR> planRList = UserPlanR.dao.find("select r._id,r.`plan_already_hour`,r.`plan_already_score`,r.`apply_status`,p.*" +
+        List<Plan> planRList = Plan.dao.find("select r._id,r.resume_id,r.`plan_already_hour`,r.`plan_already_score`,r.`apply_status`,p.*" +
                 "from t_user_plan_r r left join t_plan p " +
                 "on r.`plan_id` = p.`plan_id` " +
-                "where r.`user_id`=? and r.apply_status = 0; ", user_id);
+                "where r.`user_id`=? and r.apply_status !=0; ", user_id);
+        for (Plan plan : planRList) {
+            //通过tmp查出：公司名，职位名，
+            JobTemplate jobTemplate = JobTemplate.dao.findFirst("select * from t_job_template where tmp_id = ? ", plan.getJobTemplateId());
+            plan.put("job", jobTemplate);
+            //查公司名
+            User user = User.dao.findFirst("select * from t_user where user_id = ?", jobTemplate.getCreateBy());
+            //
+            UserCompanyR company = UserCompanyR.dao.findFirst("select * from t_user_company_r where company_id = ?", user.getUserCompanyId());
+            plan.put("company", company);
+        }
+        renderSuccess(planRList);
+
+    }
+
+    //学生：查询学生已学的所有计划
+    public void listStu() {
+        String  user_id = getPara("user_id");
+        boolean isNull  = ValidateUtils.validatePara(user_id);
+        if (isNull) {
+            renderError(Response.MSG.REQ_IS_NULL);
+            return;
+        }
+        //查询学生已学的所有计划
+        List<UserPlanR> planRList = UserPlanR.dao.findPlanByUserId(user_id, String.valueOf(Constant.APPLY_STATUS.UN_COMMIT));
         for (UserPlanR r : planRList) {
             //查出此培养计划下的课程的学习情况
             List<Clazz> clazzList = Clazz.dao.find("select c.*,r._id,r.`clazz_grade`,r.`clazz_status` " +

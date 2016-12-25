@@ -9,7 +9,7 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseUserPlanClazzR<M extends BaseUserPlanClazzR<M>> extends Model<M> implements IBean {
 
-	public void setId(Integer Id) {
+	public void setId(java.lang.Long Id) {
 		set("_id", Id);
 	}
 

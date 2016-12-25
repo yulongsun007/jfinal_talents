@@ -5,13 +5,12 @@ package win.yulongsun.talents.common;
  */
 public class Constant {
     public interface APPLY_STATUS {
-        //－1:投递失败\n0：未投递\n1：推荐人处理中\n2：已推荐\n3：已谢绝\n4：hr处理中\n5：面试邀请\n
-        int ERROR      = -1;
-        int UN_COMMIT  = 0;
-        int COMMIT     = 1;
-        int REFERRERED = 2;
-        int HR_REJECT  = 3;
-        int HR_DOING   = 4;
-        int HR_PASS    = 5;
+        int UN_COMMIT       = 0;//未投递
+        int COMMIT          = 1;//已提交
+        int REFERRER_REJECT = 2;//推荐人拒绝
+        int REFERRER_PASS   = 3;//推荐人已推荐
+        int HR_REJECT       = 4;//已谢绝
+        int HR_PASS         = 5;//面试邀请
     }
+
 }
