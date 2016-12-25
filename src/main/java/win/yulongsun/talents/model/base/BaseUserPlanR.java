@@ -33,6 +33,14 @@ public abstract class BaseUserPlanR<M extends BaseUserPlanR<M>> extends Model<M>
 		return get("plan_id");
 	}
 
+	public void setResumeId(java.lang.Integer resumeId) {
+		set("resume_id", resumeId);
+	}
+
+	public java.lang.Integer getResumeId() {
+		return get("resume_id");
+	}
+
 	public void setApplyStatus(java.lang.Integer applyStatus) {
 		set("apply_status", applyStatus);
 	}

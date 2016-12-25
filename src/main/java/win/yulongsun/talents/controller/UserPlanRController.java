@@ -1,6 +1,7 @@
 package win.yulongsun.talents.controller;
 
 import win.yulongsun.talents.common.BaseController;
+import win.yulongsun.talents.common.Constant;
 import win.yulongsun.talents.common.Response;
 import win.yulongsun.talents.model.Clazz;
 import win.yulongsun.talents.model.UserPlanClazzR;
@@ -11,6 +12,7 @@ import java.util.List;
 
 /**
  * Created by sunyulong on 2016/12/25.
+ * //－1:投递失败\n0：未投递\n1：推荐人处理中\n2：已推荐\n3：已谢绝\n4：hr处理中\n5：面试邀请\n
  */
 public class UserPlanRController extends BaseController {
     //学习此计划
@@ -31,6 +33,7 @@ public class UserPlanRController extends BaseController {
         UserPlanR planR = new UserPlanR();
         planR.setUserId(user_id);
         planR.setPlanId(plan_id);
+        planR.setApplyStatus(Constant.APPLY_STATUS.UN_COMMIT);
         planR.setApplyStatus(apply_status);
         boolean planRSave = planR.save();
         //根据plan_id查出所有课程,添加到关系表中
@@ -74,12 +77,28 @@ public class UserPlanRController extends BaseController {
 
     public void update() {
 
-
     }
 
     public void delete() {
 
     }
+
+    //学生：给推荐人提交简历
+    public void commitResume() {
+        Integer   _id       = getParaToInt("_id");
+        Integer   resume_id = getParaToInt("resume_id");
+        UserPlanR planR     = new UserPlanR();
+        planR.setId(_id);
+        planR.setResumeId(resume_id);
+        planR.setApplyStatus(Constant.APPLY_STATUS.COMMIT);
+        boolean update = planR.update();
+        if (update) {
+            renderSuccess();
+        } else {
+            renderError();
+        }
+    }
+
 
     //查询学生已学的所有计划
     public void listStu() {
@@ -89,10 +108,11 @@ public class UserPlanRController extends BaseController {
             renderError(Response.MSG.REQ_IS_NULL);
             return;
         }
-        List<UserPlanR> planRList = UserPlanR.dao.find("select r.`plan_already_hour`,r.`plan_already_score`,r.`apply_status`,p.*" +
+
+        List<UserPlanR> planRList = UserPlanR.dao.find("select r._id,r.`plan_already_hour`,r.`plan_already_score`,r.`apply_status`,p.*" +
                 "from t_user_plan_r r left join t_plan p " +
                 "on r.`plan_id` = p.`plan_id` " +
-                "where r.`user_id`=?; ", user_id);
+                "where r.`user_id`=? and r.apply_status = 0; ", user_id);
         for (UserPlanR r : planRList) {
             //查出此培养计划下的课程的学习情况
             List<Clazz> clazzList = Clazz.dao.find("select c.*,r._id,r.`clazz_grade`,r.`clazz_status` " +
