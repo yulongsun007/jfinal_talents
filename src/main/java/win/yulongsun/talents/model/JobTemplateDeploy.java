@@ -8,4 +8,6 @@ import win.yulongsun.talents.model.base.BaseJobTemplateDeploy;
 @SuppressWarnings("serial")
 public class JobTemplateDeploy extends BaseJobTemplateDeploy<JobTemplateDeploy> {
 	public static final JobTemplateDeploy dao = new JobTemplateDeploy();
+
+
 }

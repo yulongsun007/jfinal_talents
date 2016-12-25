@@ -25,6 +25,14 @@ public abstract class BaseResume<M extends BaseResume<M>> extends Model<M> imple
 		return get("resume_name");
 	}
 
+	public void setResumeImg(java.lang.String resumeImg) {
+		set("resume_img", resumeImg);
+	}
+
+	public java.lang.String getResumeImg() {
+		return get("resume_img");
+	}
+
 	public void setResumeDesc(java.lang.String resumeDesc) {
 		set("resume_desc", resumeDesc);
 	}
@@ -89,20 +97,20 @@ public abstract class BaseResume<M extends BaseResume<M>> extends Model<M> imple
 		return get("resume_email");
 	}
 
-	public void setCreateAt(java.util.Date createAt) {
-		set("create_at", createAt);
-	}
-
-	public java.util.Date getCreateAt() {
-		return get("create_at");
-	}
-
 	public void setCreateBy(java.lang.Integer createBy) {
 		set("create_by", createBy);
 	}
 
 	public java.lang.Integer getCreateBy() {
 		return get("create_by");
+	}
+
+	public void setCreateAt(java.util.Date createAt) {
+		set("create_at", createAt);
+	}
+
+	public java.util.Date getCreateAt() {
+		return get("create_at");
 	}
 
 	public void setUpdateAt(java.util.Date updateAt) {

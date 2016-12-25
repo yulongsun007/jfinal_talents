@@ -6,6 +6,7 @@ import win.yulongsun.talents.model.Clazz;
 import win.yulongsun.talents.model.Plan;
 import win.yulongsun.talents.util.ValidateUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -34,19 +35,22 @@ public class PlanController extends BaseController {
         plan.setCreateAt(new Date());
         boolean save = plan.save();
         if (save) {
-            renderSuccess();
+            renderSuccess(plan);
         } else {
             renderError(Response.MSG.ADD_ERROR);
         }
     }
 
     public void list() {
-        Integer create_by = getParaToInt("create_by");
-        boolean isNull    = ValidateUtils.validatePara(create_by);
-        if (isNull) {
-            renderError(Response.MSG.REQ_IS_NULL);
+        String     job_template_id = getPara("job_template_id");
+        String     create_by       = getPara("create_by");
+        List<Plan> planList        = new ArrayList<Plan>();
+        if (!ValidateUtils.validatePara(create_by)) {
+            planList = Plan.dao.find("select * from t_plan where create_by = ?", create_by);
         }
-        List<Plan> planList = Plan.dao.find("select * from t_plan where create_by = ?", create_by);
+        if (!ValidateUtils.validatePara(job_template_id)) {
+            planList = Plan.dao.find("select * from t_plan where job_template_id = ?", job_template_id);
+        }
         //查出对应培养计划下的课程列表
         for (Plan plan : planList) {
             List<Clazz> clazzList = Clazz.dao.find("select * from t_clazz where plan_id=? order by clazz_priority asc", plan.getPlanId());

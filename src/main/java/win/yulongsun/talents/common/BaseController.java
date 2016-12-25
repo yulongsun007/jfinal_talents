@@ -28,13 +28,11 @@ public abstract class BaseController extends Controller {
     public void renderSuccess() {
         response.respSuccess();
         renderJson(response);
-        return;
     }
 
     public void renderSuccess(String msg) {
         response.respSuccess(msg);
         renderJson(response);
-        return;
     }
 
     public void renderSuccess(Object object) {
@@ -42,13 +40,11 @@ public abstract class BaseController extends Controller {
         list.add(object);
         response.respSuccess(list);
         renderJson(response);
-        return;
     }
 
     public void renderSuccess(List object) {
         response.respSuccess(object);
         renderJson(response);
-        return;
     }
 
     public void renderSuccess(String msg, List object) {
@@ -61,13 +57,11 @@ public abstract class BaseController extends Controller {
 
     public void renderError() {
         renderJson(response);
-        return;
     }
 
     public void renderError(String msg) {
         response.setMsg(msg);
         renderJson(response);
-        return;
     }
 
 

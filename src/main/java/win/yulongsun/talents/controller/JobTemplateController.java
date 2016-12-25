@@ -191,7 +191,7 @@ public class JobTemplateController extends BaseController {
         }
     }
 
-    //查询
+    //模糊查询，根据模板ID或者模板名
     public void queryDeploy() {
         String  create_by    = getPara("create_by");
         String  tmp_id       = getPara("tmp_id");
@@ -213,5 +213,22 @@ public class JobTemplateController extends BaseController {
         sql += " order by d._id desc";
         List<JobTemplateDeploy> list = JobTemplateDeploy.dao.find(sql);
         renderSuccess(list);
+    }
+
+
+    //查询所有已发布的招聘信息
+    public void listAllDeploy() {
+        // ALL HR
+        List<User> userList = User.dao.find("select * from t_user where user_role_id=1");
+        //查出所有的已发布的招聘信息
+        List<JobTemplateDeploy> result = new ArrayList<JobTemplateDeploy>();
+        for (User user : userList) {
+            List<JobTemplateDeploy> list = JobTemplateDeploy.dao.find("SELECT d._id,d.start_at,d.ent_at,d.deploy_at,t.* " +
+                    "FROM t_job_template_deploy d Left JOIN t_job_template t " +
+                    "ON d.tmp_id=t.tmp_id " +
+                    "WHERE t.create_by=? AND d.is_active=1 order by d._id desc", user.getUserId());
+            result.addAll(list);
+        }
+        renderSuccess(result);
     }
 }
