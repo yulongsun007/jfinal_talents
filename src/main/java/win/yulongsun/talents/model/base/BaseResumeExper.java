@@ -9,12 +9,12 @@ import com.jfinal.plugin.activerecord.IBean;
 @SuppressWarnings("serial")
 public abstract class BaseResumeExper<M extends BaseResumeExper<M>> extends Model<M> implements IBean {
 
-	public void setId(java.lang.Integer Id) {
-		set("_id", Id);
+	public void setExperId(java.lang.Integer experId) {
+		set("exper_id", experId);
 	}
 
-	public java.lang.Integer getId() {
-		return get("_id");
+	public java.lang.Integer getExperId() {
+		return get("exper_id");
 	}
 
 	public void setResumeId(java.lang.Integer resumeId) {

@@ -63,25 +63,29 @@ public class ResumeController extends BaseController {
         List<Resume> resumes = Resume.dao.find("select * from t_resume where create_by = ? order by resume_id desc", create_by);
         for (Resume r : resumes) {
             r.setResumeImg(IPUtils.getUploadPath() + r.getResumeImg());
-            List<ResumeExper> experList = ResumeExper.dao.find("select * from t_resume_exper where resume_id = ?", r.getResumeId());
+            List<ResumeExper> experList = ResumeExper.dao.findByResumeId(r.getResumeId());
             r.put("experList", experList);
         }
         renderSuccess(resumes);
     }
 
     public void update() {
-        UploadFile file               = getFile("resume_img");
-        Integer    resume_id          = getParaToInt("resume_id");
-        String     resume_name        = getPara("resume_name");
-        String     resume_desc        = getPara("resume_desc");
-        String     resume_gender      = getPara("resume_gender");
-        String     resume_academy     = getPara("resume_academy");
-        String     resume_is_study    = getPara("resume_is_study");
-        String     resume_major       = getPara("resume_major");
-        String     resume_graduate_at = getPara("resume_graduate_at");
-        String     resume_mobile      = getPara("resume_mobile");
-        String     resume_email       = getPara("resume_email");
-        Integer    create_by          = getParaToInt("create_by");
+        String     has_img = getPara("has_img");
+        UploadFile file    = null;
+        if ("1".equals(has_img)) {
+            file = getFile("resume_img");
+        }
+        Integer resume_id          = getParaToInt("resume_id");
+        String  resume_name        = getPara("resume_name");
+        String  resume_desc        = getPara("resume_desc");
+        String  resume_gender      = getPara("resume_gender");
+        String  resume_academy     = getPara("resume_academy");
+        String  resume_is_study    = getPara("resume_is_study");
+        String  resume_major       = getPara("resume_major");
+        String  resume_graduate_at = getPara("resume_graduate_at");
+        String  resume_mobile      = getPara("resume_mobile");
+        String  resume_email       = getPara("resume_email");
+        Integer create_by          = getParaToInt("create_by");
         boolean isNull = ValidateUtils.validatePara(resume_id, resume_name, resume_desc, resume_gender, resume_academy, resume_is_study, resume_major,
                 resume_graduate_at, resume_mobile, resume_email, create_by);
         if (isNull) {
@@ -89,7 +93,9 @@ public class ResumeController extends BaseController {
         }
         Resume resume = new Resume();
         resume.setResumeId(resume_id);
-        resume.setResumeImg(file.getFileName());
+        if (file != null) {
+            resume.setResumeImg(file.getFileName());
+        }
         resume.setResumeName(resume_name);
         resume.setResumeDesc(resume_desc);
         resume.setResumeGender(resume_gender);
@@ -106,7 +112,7 @@ public class ResumeController extends BaseController {
             List<Resume> resumes = Resume.dao.find("select * from t_resume where create_by = ? order by resume_id desc", create_by);
             for (Resume r : resumes) {
                 r.setResumeImg(IPUtils.getUploadPath() + r.getResumeImg());
-                List<ResumeExper> experList = ResumeExper.dao.find("select * from t_resume_exper where resume_id = ?", r.getResumeId());
+                List<ResumeExper> experList = ResumeExper.dao.findByResumeId(r.getResumeId());
                 r.put("experList", experList);
             }
             renderSuccess(resumes);

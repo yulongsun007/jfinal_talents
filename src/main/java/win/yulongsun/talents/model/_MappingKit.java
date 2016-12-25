@@ -22,7 +22,7 @@ public class _MappingKit {
 		arp.addMapping("t_msg", "msg_id", Msg.class);
 		arp.addMapping("t_plan", "plan_id", Plan.class);
 		arp.addMapping("t_resume", "resume_id", Resume.class);
-		arp.addMapping("t_resume_exper", "_id", ResumeExper.class);
+		arp.addMapping("t_resume_exper", "exper_id", ResumeExper.class);
 		arp.addMapping("t_role", "_id", Role.class);
 		arp.addMapping("t_user", "user_id", User.class);
 		arp.addMapping("t_user_company_r", "company_id", UserCompanyR.class);
