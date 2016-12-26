@@ -7,6 +7,7 @@ import win.yulongsun.talents.model.*;
 import win.yulongsun.talents.util.IPUtils;
 import win.yulongsun.talents.util.ValidateUtils;
 
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 
@@ -15,6 +16,7 @@ import java.util.List;
  * //－1:投递失败\n0：未投递\n1：推荐人处理中\n2：已推荐\n3：已谢绝\n4：hr处理中\n5：面试邀请\n
  */
 public class UserPlanRController extends BaseController {
+
     //学习此计划
     public void add() {
         Integer user_id      = getParaToInt("user_id");
@@ -108,7 +110,7 @@ public class UserPlanRController extends BaseController {
             return;
         }
 
-        List<Plan> planRList = Plan.dao.find("select r._id,r.resume_id,r.`plan_already_hour`,r.`plan_already_score`,r.`apply_status`,p.*" +
+        List<Plan> planRList = Plan.dao.find("select r._id,r.resume_id,r.`plan_already_hour`,r.`plan_already_score`,r.apply_msg,r.`apply_status`,p.*" +
                 "from t_user_plan_r r left join t_plan p " +
                 "on r.`plan_id` = p.`plan_id` " +
                 "where r.`user_id`=? and r.apply_status !=0; ", user_id);
@@ -188,4 +190,85 @@ public class UserPlanRController extends BaseController {
         }
     }
 
+
+    //HR:查询他名下的学生
+    public void hrListStu() {
+        String user_company_id = getPara("user_company_id");
+        //1.查推荐人
+        List<User> referrerList = User.dao.find("select u.*,c.company_name,c.company_addr,c.company_contact from t_user u left join t_user_company_r c on u.user_company_id = c.company_id" +
+                " where user_company_id = ? and user_role_id = 2", user_company_id);
+        List<UserPlanR> result = new ArrayList<UserPlanR>();
+        for (User user : referrerList) {
+            //2.查推荐人创建的培养计划
+            List<Plan> planList = Plan.dao.find("select * from t_plan where create_by = ?", user.getUserId());
+            //3.查选了培养计划的学生
+            for (Plan plan : planList) {
+                List<UserPlanR> userPlanRList = UserPlanR.dao.find("select * from t_user_plan_r where plan_id = ? and apply_status = 3 ", plan.getPlanId());
+                for (UserPlanR r : userPlanRList) {
+                    //2.根据resumeId 找出简历信息
+                    Resume resume = Resume.dao.findById(r.getResumeId());
+                    resume.setResumeImg(IPUtils.getUploadPath() + resume.getResumeImg());
+                    List<ResumeExper> experList = ResumeExper.dao.findByResumeId(r.getResumeId());
+                    resume.put("experList", experList);
+                    r.put("resume", resume);
+                }
+                result.addAll(userPlanRList);
+            }
+        }
+        renderSuccess(result);
+    }
+
+    //HR:查询他名下的学生
+    public void hrListStuHistory() {
+        String user_company_id = getPara("user_company_id");
+        //1.查推荐人
+        List<User> referrerList = User.dao.find("select u.*,c.company_name,c.company_addr,c.company_contact from t_user u left join t_user_company_r c on u.user_company_id = c.company_id" +
+                " where user_company_id = ? and user_role_id = 2", user_company_id);
+        List<UserPlanR> result = new ArrayList<UserPlanR>();
+        for (User user : referrerList) {
+            //2.查推荐人创建的培养计划
+            List<Plan> planList = Plan.dao.find("select * from t_plan where create_by = ?", user.getUserId());
+            //3.查选了培养计划的学生
+            for (Plan plan : planList) {
+                List<UserPlanR> userPlanRList = UserPlanR.dao.find("select * from t_user_plan_r where plan_id = ? and apply_status= 4 or apply_status=5", plan.getPlanId());
+                for (UserPlanR r : userPlanRList) {
+                    //2.根据resumeId 找出简历信息
+                    Resume resume = Resume.dao.findById(r.getResumeId());
+                    resume.setResumeImg(IPUtils.getUploadPath() + resume.getResumeImg());
+                    List<ResumeExper> experList = ResumeExper.dao.findByResumeId(r.getResumeId());
+                    resume.put("experList", experList);
+                    r.put("resume", resume);
+                }
+                result.addAll(userPlanRList);
+            }
+        }
+        renderSuccess(result);
+    }
+    //HR:模糊查询查询他名下的学生
+    @Deprecated
+    public void hrQueryStu() {
+        String user_company_id = getPara("user_company_id");
+        //1.查推荐人
+        List<User> referrerList = User.dao.find("select u.*,c.company_name,c.company_addr,c.company_contact from t_user u left join t_user_company_r c on u.user_company_id = c.company_id" +
+                " where user_company_id = ? and user_role_id = 2", user_company_id);
+        List<UserPlanR> result = new ArrayList<UserPlanR>();
+        for (User user : referrerList) {
+            //2.查推荐人创建的培养计划
+            List<Plan> planList = Plan.dao.find("select * from t_plan where create_by = ?", user.getUserId());
+            //3.查选了培养计划的学生
+            for (Plan plan : planList) {
+                List<UserPlanR> userPlanRList = UserPlanR.dao.find("select * from t_user_plan_r where plan_id = ? and apply_status= 4 or apply_status=5", plan.getPlanId());
+                for (UserPlanR r : userPlanRList) {
+                    //2.根据resumeId 找出简历信息
+                    Resume resume = Resume.dao.findById(r.getResumeId());
+                    resume.setResumeImg(IPUtils.getUploadPath() + resume.getResumeImg());
+                    List<ResumeExper> experList = ResumeExper.dao.findByResumeId(r.getResumeId());
+                    resume.put("experList", experList);
+                    r.put("resume", resume);
+                }
+                result.addAll(userPlanRList);
+            }
+        }
+        renderSuccess(result);
+    }
 }
