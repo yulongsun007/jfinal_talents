@@ -3,6 +3,7 @@ package win.yulongsun.talents.controller;
 import win.yulongsun.talents.common.BaseController;
 import win.yulongsun.talents.common.Response;
 import win.yulongsun.talents.model.Clazz;
+import win.yulongsun.talents.model.JobTemplate;
 import win.yulongsun.talents.model.Plan;
 import win.yulongsun.talents.util.ValidateUtils;
 
@@ -19,7 +20,7 @@ public class PlanController extends BaseController {
     public void add() {
         String  plan_name       = getPara("plan_name");
         String  plan_desc       = getPara("plan_desc");
-        String  plan_img       = getPara("plan_img");
+        String  plan_img        = getPara("plan_img");
         String  plan_content    = getPara("plan_content");
         Integer job_template_id = getParaToInt("job_template_id");
         Integer create_by       = getParaToInt("create_by");
@@ -53,7 +54,14 @@ public class PlanController extends BaseController {
         if (!ValidateUtils.validatePara(job_template_id)) {
             planList = Plan.dao.find("select * from t_plan where job_template_id = ?", job_template_id);
         }
-        //查出对应培养计划下的课程列表
+        //1.查出HR
+        for (Plan plan : planList) {
+            //1.1招聘模板
+            JobTemplate template = JobTemplate.dao.findById(plan.getJobTemplateId());
+            //1.2HR
+            plan.put("hr_id", template.getCreateBy());
+        }
+        //2.查出对应培养计划下的课程列表
         for (Plan plan : planList) {
             List<Clazz> clazzList = Clazz.dao.findByPlanId(plan.getPlanId());
             plan.put("clazz", clazzList);
@@ -64,7 +72,7 @@ public class PlanController extends BaseController {
     public void update() {
         Integer plan_id      = getParaToInt("plan_id");
         String  plan_name    = getPara("plan_name");
-        String  plan_img    = getPara("plan_img");
+        String  plan_img     = getPara("plan_img");
         String  plan_desc    = getPara("plan_desc");
         String  plan_content = getPara("plan_content");
         boolean isNull       = ValidateUtils.validatePara(plan_id);

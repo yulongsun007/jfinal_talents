@@ -128,6 +128,17 @@ public class JobTemplateController extends BaseController {
         }
     }
 
+    //HR：查询未发布的招聘模板
+    public void hrListUnDeploy() {
+        String  create_by = getPara("create_by");
+        boolean isNull    = ValidateUtils.validatePara(create_by);
+        if (isNull) {
+            renderError(Response.MSG.REQ_IS_NULL);
+        }
+        List<JobTemplate> list = JobTemplate.dao.find("select * from `t_job_template` where `tmp_id` not in (select tmp_id from `t_job_template_deploy`) and create_by = ?", create_by);
+        renderSuccess(list);
+    }
+
     ///////////////////////////////////////////////////////////////////////////
 
     //发布招聘

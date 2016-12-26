@@ -36,7 +36,6 @@ public class UserPlanRController extends BaseController {
         planR.setUserId(user_id);
         planR.setPlanId(plan_id);
         planR.setApplyStatus(Constant.APPLY_STATUS.UN_COMMIT);
-        planR.setApplyStatus(apply_status);
         boolean planRSave = planR.save();
         //根据plan_id查出所有课程,添加到关系表中
         List<Clazz> clazzList = Clazz.dao.findByPlanId(plan_id);

@@ -4,6 +4,7 @@ import win.yulongsun.talents.common.BaseController;
 import win.yulongsun.talents.common.Response;
 import win.yulongsun.talents.model.Clazz;
 import win.yulongsun.talents.model.UserPlanClazzR;
+import win.yulongsun.talents.model.UserPlanR;
 import win.yulongsun.talents.util.ValidateUtils;
 
 import java.util.List;
@@ -46,6 +47,20 @@ public class UserPlanClazzRController extends BaseController {
                     "from `t_clazz` c left join `t_user_plan_clazz_r` r " +
                     "on c.`clazz_id` = r.`clazz_id` " +
                     "where r.`user_id`=? and r.`plan_id`=? ", user_id, plan_id);
+            //更新t_user_plan
+            if ("已完成".equals(clazz_status)) {
+                int            totalScore = 0;
+                int            totalHour  = 0;
+                UserPlanClazzR planClazzR = UserPlanClazzR.dao.findById(_id);
+                Clazz          c          = Clazz.dao.findById(planClazzR.getClazzId());
+                totalScore += c.getClazzScore();
+                totalHour += c.getClazzHour();
+                UserPlanR userPlanR = UserPlanR.dao.findFirst("select * from t_user_plan_r where plan_id =? ", plan_id);
+                userPlanR.setPlanAlreadyHour(totalHour);
+                userPlanR.setPlanAlreadyScore(totalScore);
+                userPlanR.update();
+            }
+
             renderSuccess(clazzList);
         } else {
             renderError();

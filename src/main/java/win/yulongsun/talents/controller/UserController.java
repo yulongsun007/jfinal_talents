@@ -92,12 +92,12 @@ public class UserController extends BaseController {
         try {
             int       code      = (int) ((Math.random() * 9 + 1) * 100000);
             BizResult bizResult = DayuSMSUtils.sendSms(user_mobile, code);
-            if (bizResult.getSuccess()) {
+            if (bizResult == null || bizResult.getMsg() == null) {
                 //将发送记录存在session中
 //                setSessionAttr(user_mobile, code);
-                renderSuccess();
+                renderSuccess(code);
             } else {
-                renderError(bizResult.getMsg());
+                renderError(bizResult.getErrCode() + ":" + bizResult.getMsg());
             }
         } catch (ApiException e) {
             e.printStackTrace();
@@ -108,15 +108,16 @@ public class UserController extends BaseController {
 
     //注册
     public void add() {
-        String  user_mobile     = getPara("user_mobile");
-        String  user_token      = getPara("user_token");
-        Integer user_role       = getParaToInt("user_role_id");
-        String  user_name       = getPara("user_name");
-        Integer user_company_id = getParaToInt("user_company_id");
-        String  company_name    = getPara("company_name");
-        String  company_addr    = getPara("company_addr");
-        String  company_contact = getPara("company_contact");
-        boolean isNull          = ValidateUtils.validatePara(user_mobile, user_token, user_role, user_name);
+        String  user_mobile  = getPara("user_mobile");
+        String  user_token   = getPara("user_token");
+        Integer user_role_id = getParaToInt("user_role_id");
+        String  company_id   = getPara("company_id");
+//        String  user_name       = getPara("user_name");
+//        Integer user_company_id = getParaToInt("user_company_id");
+//        String  company_name    = getPara("company_name");
+//        String  company_addr    = getPara("company_addr");
+//        String  company_contact = getPara("company_contact");
+        boolean isNull = ValidateUtils.validatePara(user_mobile, user_token, user_role_id);
         if (isNull) {
             renderError(Response.MSG.REQ_IS_NULL);
         }
@@ -124,50 +125,44 @@ public class UserController extends BaseController {
             renderError("此手机号已经被注册");
             return;
         }
-        if (user_company_id == null) {
-            //没有公司Id的用户
-            User         user    = new User();
-            UserCompanyR company = new UserCompanyR();
-            company.setCompanyName(company_name);
-            company.setCompanyAddr(company_addr);
-            company.setCompanyContact(company_contact);
-            boolean companySave = company.save();
-            if (companySave) {
-                Integer companyId = company.getCompanyId();
-                user.setUserCompanyId(companyId);
-            } else {
-                renderError(Response.MSG.ADD_ERROR);
-                return;
-            }
-            user.setUserMobile(user_mobile);
-            user.setUserToken(user_token);
-            user.setUserRoleId(user_role);
-            user.setUserName(user_name);
-            boolean save = user.save();
-            if (save) {
-                renderSuccess();
-            } else {
-                renderError(Response.MSG.ADD_ERROR);
-            }
-        } else {
-            //有公司Id的用户
-            UserCompanyR company = UserCompanyR.dao.findById(user_company_id);
-            if (company == null) {
-                renderError("找不到对应编号的公司");
+        if (user_role_id == 2) {
+            UserCompanyR userCompanyR = UserCompanyR.dao.findById(company_id);
+            if (userCompanyR == null) {
+                renderError("注册公司不存在");
                 return;
             }
             User user = new User();
             user.setUserMobile(user_mobile);
             user.setUserToken(user_token);
-            user.setUserCompanyId(user_company_id);
-            user.setUserRoleId(user_role);
-            user.setUserName(user_name);
+            user.setUserRoleId(user_role_id);
+            user.setUserName(user_mobile);
             boolean save = user.save();
             if (save) {
-                renderSuccess();
+                renderSuccess("注册成功");
             } else {
                 renderError(Response.MSG.ADD_ERROR);
             }
+        } else {
+            UserCompanyR companyR = new UserCompanyR();
+            companyR.setCompanyName(company_id);
+            boolean save = companyR.save();
+            if (save) {
+                User user = new User();
+                user.setUserName(user_mobile);
+                user.setUserMobile(user_mobile);
+                user.setUserToken(user_token);
+                user.setUserCompanyId(companyR.getCompanyId());
+                user.setUserRoleId(user_role_id);
+                boolean userSave = user.save();
+                if (userSave) {
+                    renderSuccess("注册成功");
+                } else {
+                    renderError(Response.MSG.ADD_ERROR);
+                }
+            } else {
+                renderError(Response.MSG.ADD_ERROR);
+            }
+
         }
 
     }
