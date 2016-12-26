@@ -19,6 +19,7 @@ public class PlanController extends BaseController {
     public void add() {
         String  plan_name       = getPara("plan_name");
         String  plan_desc       = getPara("plan_desc");
+        String  plan_img       = getPara("plan_img");
         String  plan_content    = getPara("plan_content");
         Integer job_template_id = getParaToInt("job_template_id");
         Integer create_by       = getParaToInt("create_by");
@@ -28,6 +29,7 @@ public class PlanController extends BaseController {
         }
         Plan plan = new Plan();
         plan.setPlanName(plan_name);
+        plan.setPlanImg(plan_img);
         plan.setPlanDesc(plan_desc);
         plan.setPlanContent(plan_content);
         plan.setJobTemplateId(job_template_id);
@@ -62,6 +64,7 @@ public class PlanController extends BaseController {
     public void update() {
         Integer plan_id      = getParaToInt("plan_id");
         String  plan_name    = getPara("plan_name");
+        String  plan_img    = getPara("plan_img");
         String  plan_desc    = getPara("plan_desc");
         String  plan_content = getPara("plan_content");
         boolean isNull       = ValidateUtils.validatePara(plan_id);
@@ -79,6 +82,7 @@ public class PlanController extends BaseController {
         if (!ValidateUtils.isEmpty(plan_content)) {
             plan.setPlanContent(plan_content);
         }
+        plan.setPlanImg(plan_img);
         plan.setUpdateAt(new Date());
         boolean update = plan.update();
         if (update) {

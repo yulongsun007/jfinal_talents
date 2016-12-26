@@ -11,7 +11,7 @@ public class ValidateUtils {
     public static boolean validatePara(Object... para) {
         boolean isNull = false;
         for (int i = 0; i < para.length; i++) {
-            if (para[i] == null || "".equals(para[i])) {
+            if (para[i] == null || "".equals(para[i]) || "null".equals(para[i])) {
                 isNull = true;
             }
         }

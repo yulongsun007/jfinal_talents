@@ -4,6 +4,7 @@ import win.yulongsun.talents.common.BaseController;
 import win.yulongsun.talents.common.Constant;
 import win.yulongsun.talents.common.Response;
 import win.yulongsun.talents.model.*;
+import win.yulongsun.talents.util.IPUtils;
 import win.yulongsun.talents.util.ValidateUtils;
 
 import java.util.List;
@@ -145,4 +146,34 @@ public class UserPlanRController extends BaseController {
         renderSuccess(planRList);
 
     }
+
+
+    //推荐人：查出推荐人下所有的学生信息
+    //需要返回：
+    //1.学生简历信息
+    //2.培养计划信息
+    //3.招聘ID
+    public void listReferrerSubStu() {
+        Integer user_id = getParaToInt("user_id");
+        //1.推荐人创建的培养计划
+        List<Plan> planList = Plan.dao.find("select * from t_plan where create_by = ?", user_id);
+        //2.查出选了这些培养计划的学生ID
+        for (Plan plan : planList) {
+            List<UserPlanR> userPlanRList = UserPlanR.dao.find("select * from t_user_plan_r where plan_id = ?", plan.getPlanId());
+//            plan.put("userPlanR", userPlanRList);
+            //3.根据resume_id查出简历信息
+            for (UserPlanR userPlanR : userPlanRList) {
+                List<Resume> resumes = Resume.dao.find("select * from t_resume where resume_id = ? order by resume_id desc", userPlanR.getResumeId());
+                for (Resume r : resumes) {
+                    r.setResumeImg(IPUtils.getUploadPath() + r.getResumeImg());
+                    List<ResumeExper> experList = ResumeExper.dao.findByResumeId(r.getResumeId());
+                    r.put("experList", experList);
+                }
+            }
+        }
+        renderSuccess(planList);
+
+    }
+
+
 }
