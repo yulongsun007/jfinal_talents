@@ -7,6 +7,7 @@ import win.yulongsun.talents.model.*;
 import win.yulongsun.talents.util.IPUtils;
 import win.yulongsun.talents.util.ValidateUtils;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -154,26 +155,37 @@ public class UserPlanRController extends BaseController {
     //2.培养计划信息
     //3.招聘ID
     public void listReferrerSubStu() {
-        Integer user_id = getParaToInt("user_id");
-        //1.推荐人创建的培养计划
-        List<Plan> planList = Plan.dao.find("select * from t_plan where create_by = ?", user_id);
-        //2.查出选了这些培养计划的学生ID
-        for (Plan plan : planList) {
-            List<UserPlanR> userPlanRList = UserPlanR.dao.find("select * from t_user_plan_r where plan_id = ?", plan.getPlanId());
-//            plan.put("userPlanR", userPlanRList);
-            //3.根据resume_id查出简历信息
-            for (UserPlanR userPlanR : userPlanRList) {
-                List<Resume> resumes = Resume.dao.find("select * from t_resume where resume_id = ? order by resume_id desc", userPlanR.getResumeId());
-                for (Resume r : resumes) {
-                    r.setResumeImg(IPUtils.getUploadPath() + r.getResumeImg());
-                    List<ResumeExper> experList = ResumeExper.dao.findByResumeId(r.getResumeId());
-                    r.put("experList", experList);
-                }
-            }
+        String plan_id = getPara("plan_id");
+        //1.查出所有的投递信息
+        List<UserPlanR> userPlanRList = UserPlanR.dao.find("select * from t_user_plan_r where plan_id = ? and apply_status = 1", plan_id);
+        for (UserPlanR r : userPlanRList) {
+            //2.根据resumeId 找出简历信息
+            Resume resume = Resume.dao.findById(r.getResumeId());
+            resume.setResumeImg(IPUtils.getUploadPath() + resume.getResumeImg());
+            List<ResumeExper> experList = ResumeExper.dao.findByResumeId(r.getResumeId());
+            resume.put("experList", experList);
+            r.put("resume", resume);
         }
-        renderSuccess(planList);
-
+        renderSuccess(userPlanRList);
     }
 
+
+    //推荐人：处理简历信息
+    public void referrerDoResume() {
+        String    _id          = getPara("_id");
+        String    apply_status = getPara("apply_status");
+        String    apply_msg    = getPara("apply_msg");
+        UserPlanR userPlanR    = new UserPlanR();
+        userPlanR.setId(Integer.valueOf(_id));
+        userPlanR.setApplyStatus(Integer.valueOf(apply_status));
+        userPlanR.setApplyMsg(apply_msg);
+        userPlanR.setUpdateAt(new Date());
+        boolean update = userPlanR.update();
+        if (update) {
+            renderSuccess();
+        } else {
+            renderError();
+        }
+    }
 
 }
