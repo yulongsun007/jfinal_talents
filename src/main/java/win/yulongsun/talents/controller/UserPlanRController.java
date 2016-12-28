@@ -174,15 +174,40 @@ public class UserPlanRController extends BaseController {
     //推荐人：处理简历信息
     public void referrerDoResume() {
         String    _id          = getPara("_id");
-        String    apply_status = getPara("apply_status");
+        Integer   apply_status = getParaToInt("apply_status");
         String    apply_msg    = getPara("apply_msg");
         UserPlanR userPlanR    = new UserPlanR();
         userPlanR.setId(Integer.valueOf(_id));
-        userPlanR.setApplyStatus(Integer.valueOf(apply_status));
+        userPlanR.setApplyStatus(apply_status);
         userPlanR.setApplyMsg(apply_msg);
         userPlanR.setUpdateAt(new Date());
         boolean update = userPlanR.update();
         if (update) {
+            //更新用户积分
+            UserPlanR planR = UserPlanR.dao.findById(_id);
+            if (planR != null) {
+                Integer userId = planR.getUserId();
+                User    user   = User.dao.findById(userId);
+                if (user != null) {
+                    Integer userScore = user.getUserScore();
+                    switch (apply_status) {
+                        case Constant.APPLY_STATUS.HR_REJECT:
+                            userScore = userScore + 2;
+                            break;
+                        case Constant.APPLY_STATUS.HR_PASS:
+                            userScore = userScore + 10;
+                            break;
+                        case Constant.APPLY_STATUS.REFERRER_REJECT:
+                            userScore = userScore + 2;
+                            break;
+                        case Constant.APPLY_STATUS.REFERRER_PASS:
+                            userScore = userScore + 5;
+                            break;
+                    }
+                    user.setUserScore(userScore);
+                    user.update();
+                }
+            }
             renderSuccess();
         } else {
             renderError();
@@ -225,7 +250,7 @@ public class UserPlanRController extends BaseController {
                 " where user_company_id = ? and user_role_id = 2", user_company_id);
         List<UserPlanR> result = new ArrayList<UserPlanR>();
         for (User user : referrerList) {
-            //2.查推荐人创建的培养计划
+            //2.查推荐人创建的培养计划if
             List<Plan> planList = Plan.dao.find("select * from t_plan where create_by = ?", user.getUserId());
             //3.查选了培养计划的学生
             for (Plan plan : planList) {
@@ -243,6 +268,7 @@ public class UserPlanRController extends BaseController {
         }
         renderSuccess(result);
     }
+
     //HR:模糊查询查询他名下的学生
     @Deprecated
     public void hrQueryStu() {

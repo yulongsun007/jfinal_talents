@@ -3,6 +3,7 @@ package win.yulongsun.talents.controller;
 import win.yulongsun.talents.common.BaseController;
 import win.yulongsun.talents.common.Response;
 import win.yulongsun.talents.model.Clazz;
+import win.yulongsun.talents.model.Plan;
 import win.yulongsun.talents.util.ValidateUtils;
 
 import java.util.List;
@@ -32,6 +33,15 @@ public class ClazzController extends BaseController {
         clazz.setClazzScore(clazz_score);
         boolean save = clazz.save();
         if (save) {
+            //查找对应的培养计划，更新培养计划学分
+            Plan plan = Plan.dao.findById(plan_id);
+            if (plan != null) {
+                Integer planScore = plan.getPlanScore();
+                Integer planHour  = plan.getPlanHour();
+                plan.setPlanScore(planScore + clazz_score);
+                plan.setPlanHour(planHour + clazz_hour);
+                plan.update();
+            }
             renderSuccess(list(plan_id));
         } else {
             renderError(Response.MSG.ADD_ERROR);

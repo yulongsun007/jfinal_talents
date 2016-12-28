@@ -49,10 +49,10 @@ public class PlanController extends BaseController {
         String     create_by       = getPara("create_by");
         List<Plan> planList        = new ArrayList<Plan>();
         if (!ValidateUtils.validatePara(create_by)) {
-            planList = Plan.dao.find("select * from t_plan where create_by = ?", create_by);
+            planList = Plan.dao.find("select * from t_plan where create_by = ? order by plan_id desc", create_by);
         }
         if (!ValidateUtils.validatePara(job_template_id)) {
-            planList = Plan.dao.find("select * from t_plan where job_template_id = ?", job_template_id);
+            planList = Plan.dao.find("select * from t_plan where job_template_id = ? order by plan_id desc", job_template_id);
         }
         //1.查出HR
         for (Plan plan : planList) {

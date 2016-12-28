@@ -15,6 +15,6 @@ public class UserPlanR extends BaseUserPlanR<UserPlanR> {
         return find("select r._id,r.`plan_already_hour`,r.`plan_already_score`,r.`apply_status`,p.*" +
                 "from t_user_plan_r r left join t_plan p " +
                 "on r.`plan_id` = p.`plan_id` " +
-                "where r.`user_id`=? and r.apply_status = ?; ", user_id, apply_status);
+                "where r.`user_id`=? and r.apply_status = ? order by r.`_id` desc", user_id, apply_status);
     }
 }
