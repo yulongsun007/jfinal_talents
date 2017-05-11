@@ -1,5 +1,6 @@
 package win.yulongsun.talents.util;
 
+import com.gexin.fastjson.JSON;
 import com.gexin.rp.sdk.base.IPushResult;
 import com.gexin.rp.sdk.base.impl.SingleMessage;
 import com.gexin.rp.sdk.base.impl.Target;
@@ -36,7 +37,7 @@ public class GTMsgUtils {
 //        tmp.setTransmissionContent(msg.getMsgContent());
 
         NotificationTemplate tmp = new NotificationTemplate();
-        tmp.setTransmissionContent(msg.getMsgContent());
+        tmp.setTransmissionContent(JSON.toJSONString(msg));
         tmp.setTransmissionType(2);
         tmp.setAppId(appId);
         tmp.setAppkey(appKey);

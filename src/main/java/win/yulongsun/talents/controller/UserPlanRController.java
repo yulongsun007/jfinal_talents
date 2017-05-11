@@ -64,7 +64,7 @@ public class UserPlanRController extends BaseController {
             renderError(Response.MSG.REQ_IS_NULL);
             return;
         }
-        List<UserPlanR> planRList = UserPlanR.dao.find("select r.`plan_already_hour`,r.`plan_already_score`,r.`apply_status`,p.*" +
+        List<UserPlanR> planRList = UserPlanR.dao.find("select r.`plan_already_hour`,r.`plan_already_score`,r.resume_id,r.`apply_status`,p.*" +
                 "from t_user_plan_r r left join t_plan p " +
                 "on r.`plan_id` = p.`plan_id` " +
                 "where r.`user_id`=?; ", user_id);
@@ -158,10 +158,11 @@ public class UserPlanRController extends BaseController {
     public void listReferrerSubStu() {
         String plan_id = getPara("plan_id");
         //1.查出所有的投递信息
-        List<UserPlanR> userPlanRList = UserPlanR.dao.find("select * from t_user_plan_r where plan_id = ? and apply_status = 1", plan_id);
+        List<UserPlanR> userPlanRList = UserPlanR.dao.find("select * from t_user_plan_r where plan_id = ? and apply_status = 1 and resume_id !=0", plan_id);
         for (UserPlanR r : userPlanRList) {
             //2.根据resumeId 找出简历信息
-            Resume resume = Resume.dao.findById(r.getResumeId());
+            Integer resumeId = r.getResumeId();
+            Resume resume = Resume.dao.findById(resumeId);
             resume.setResumeImg(IPUtils.getUploadPath() + resume.getResumeImg());
             List<ResumeExper> experList = ResumeExper.dao.findByResumeId(r.getResumeId());
             resume.put("experList", experList);
@@ -254,7 +255,7 @@ public class UserPlanRController extends BaseController {
             List<Plan> planList = Plan.dao.find("select * from t_plan where create_by = ?", user.getUserId());
             //3.查选了培养计划的学生
             for (Plan plan : planList) {
-                List<UserPlanR> userPlanRList = UserPlanR.dao.find("select * from t_user_plan_r where plan_id = ? and apply_status= 4 or apply_status=5", plan.getPlanId());
+                List<UserPlanR> userPlanRList = UserPlanR.dao.find("select * from t_user_plan_r where plan_id = ? and apply_status>= 4", plan.getPlanId());
                 for (UserPlanR r : userPlanRList) {
                     //2.根据resumeId 找出简历信息
                     Resume resume = Resume.dao.findById(r.getResumeId());

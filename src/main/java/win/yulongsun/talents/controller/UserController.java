@@ -136,6 +136,7 @@ public class UserController extends BaseController {
             user.setUserToken(user_token);
             user.setUserRoleId(user_role_id);
             user.setUserName(user_mobile);
+            user.setUserCompanyId(Integer.valueOf(company_id));
             boolean save = user.save();
             if (save) {
                 renderSuccess("注册成功");
@@ -153,6 +154,7 @@ public class UserController extends BaseController {
                 user.setUserToken(user_token);
                 user.setUserCompanyId(companyR.getCompanyId());
                 user.setUserRoleId(user_role_id);
+                user.setUserCompanyId(Integer.valueOf(company_id));
                 boolean userSave = user.save();
                 if (userSave) {
                     renderSuccess("注册成功");

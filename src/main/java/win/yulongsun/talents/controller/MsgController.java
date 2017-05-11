@@ -6,6 +6,8 @@ import win.yulongsun.talents.model.Msg;
 import win.yulongsun.talents.util.GTMsgUtils;
 import win.yulongsun.talents.util.ValidateUtils;
 
+import java.util.Date;
+
 /**
  * Created by sunyulong on 2016/12/20.
  */
@@ -43,6 +45,7 @@ public class MsgController extends BaseController {
         msg.setMsgTitle(msg_title);
         msg.setMsgContent(msg_content);
         msg.setMsgType(msg_type);
+        msg.setCreateAt(new Date());
         GTMsgUtils.PushResult pushResult = GTMsgUtils.pushMsgToSingle(msg);
         if (pushResult.success) {
             renderSuccess();
